@@ -9,7 +9,7 @@
 <ul>
     {% for t in latest_task_list %}
 <li>
-{{ t.test_title }}
+<a href="{{ t.id }}">{{ t.test_title }}</a>
 </li>
     {% endfor %}
 
