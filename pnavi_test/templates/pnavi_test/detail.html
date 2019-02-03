@@ -8,7 +8,12 @@
 <h1>{{ test_task.test_title }}</h1>
 <ul>
     {% for item in test_task.testitem_set.all %}
-<li>{{ item.item_text }}</li>
+<li>
+    {{ item.item_text }}
+    {% if item.is_checked %}
+    已完成 {% else %} 未完成
+    {% endif %}
+</li>
     {% endfor %}
 
 </ul>

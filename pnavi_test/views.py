@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.http import Http404
+from django.shortcuts import render, get_object_or_404
 
 from .models import TestTask
 
@@ -14,8 +13,5 @@ def index(request):
 
 
 def detail(request, task_id):
-    try:
-        task = TestTask.objects.get(pk=task_id)
-    except TestTask.DoesNotExist:
-        raise Http404("Test task does not exist!")
+    task = get_object_or_404(TestTask, pk=task_id)
     return render(request, 'pnavi_test/detail.html', {'test_task': task, })
