@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ test_title }}</title>
+    <title>{{ test_task.test_title }}</title>
 </head>
 <body>
-<h1>{{ test_title }}</h1>
+<h1>{{ test_task.test_title }}</h1>
 <ul>
-    {% for item in test_items %}
+    {% for item in test_task.testitem_set.all %}
 <li>{{ item.item_text }}</li>
     {% endfor %}
 
