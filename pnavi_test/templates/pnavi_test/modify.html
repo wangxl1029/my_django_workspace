@@ -6,12 +6,19 @@
 </head>
 <body>
 <h1>Modify: {{ test_task.test_title }}</h1>
+
+{% if test_task.testitem_set.count > 0 %}
+
 <form action="{% url 'modify' test_task.id %}" method="post">
     {% csrf_token %}
-  <p><input type="checkbox" name="vehicle" value="Bike" /> I have a bike</p>
-  <p><input type="checkbox" name="vehicle" value="Car" checked="checked" /> I have a car</p>
-  <input type="submit" value="Submit" />
-</form>
+    {% for item in test_task.testitem_set.all %}
+        <p><input type="checkbox" name="test_item" /> {{ item.item_text }}</p>
 
+    {% endfor %}
+    <input type="submit" value="Submit" />
+</form>
+{% else %}
+    No test items available!
+{% endif %}
 </body>
 </html>
