@@ -10,7 +10,7 @@ def index(request):
     context = {
         'latest_task_list': latest_task_list,
     }
-    return render(request, 'index.html', context)
+    return render(request, 'pnavi_test/index.html', context)
 
 
 def detail(request, task_id):

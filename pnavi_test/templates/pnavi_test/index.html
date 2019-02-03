@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Test Task</title>
+    <title>Predictive Navigation Test Task</title>
 </head>
 <body>
 <H1>Test Task List</H1>
 <ul>
     {% for t in latest_task_list %}
 <li>
-<a href="{{ t.id }}">{{ t.test_title }}</a>
+<a href="/pnavi/{{ t.id }}/">{{ t.test_title }}</a>
 </li>
     {% endfor %}
 
