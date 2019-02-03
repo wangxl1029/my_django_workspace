@@ -15,3 +15,8 @@ def index(request):
 def detail(request, task_id):
     task = get_object_or_404(TestTask, pk=task_id)
     return render(request, 'pnavi_test/detail.html', {'test_task': task, })
+
+
+def modify(request, task_id):
+    task = get_object_or_404(TestTask, pk=task_id)
+    return render(request, 'pnavi_test/modify.html', {'test_task': task, })
