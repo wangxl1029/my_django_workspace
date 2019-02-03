@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 from .models import TestTask
 
@@ -14,4 +13,9 @@ def index(request):
 
 
 def detail(request, task_id):
-    return HttpResponse('This is the test task %d' % task_id)
+    task = TestTask.objects.get(pk=task_id)
+    context = {
+        'test_title': task.test_title,
+        'test_items': task.testitem_set.all()
+    }
+    return render(request, 'pnavi_test/detail.html', context)
