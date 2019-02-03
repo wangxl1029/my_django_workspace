@@ -6,5 +6,12 @@
 </head>
 <body>
 <h1>Modify: {{ test_task.test_title }}</h1>
+<form action="{% url 'modify' test_task.id %}" method="post">
+    {% csrf_token %}
+  <p><input type="checkbox" name="vehicle" value="Bike" /> I have a bike</p>
+  <p><input type="checkbox" name="vehicle" value="Car" checked="checked" /> I have a car</p>
+  <input type="submit" value="Submit" />
+</form>
+
 </body>
 </html>
