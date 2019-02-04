@@ -9,7 +9,7 @@
 
 {% if test_task.testitem_set.count > 0 %}
 
-<form action="{% url 'modify' test_task.id %}" method="post">
+<form action="{% url 'pnavi:modify' test_task.id %}" method="post">
     {% csrf_token %}
     {% for item in test_task.testitem_set.all %}
         <p><input type="checkbox" name="test_item" /> {{ item.item_text }}</p>

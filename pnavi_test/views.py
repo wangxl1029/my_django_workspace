@@ -25,4 +25,4 @@ def modify_page(request, task_id):
 
 
 def modify_action(request, task_id):
-    return HttpResponseRedirect(reverse('detail', args=(task_id,)))
+    return HttpResponseRedirect(reverse('pnavi:detail', args=(task_id,)))
