@@ -29,3 +29,5 @@ check list:
 
 - [x] Poll app run OK.
 - [x] P-nav app run OK.
+
+时区设置参考：<https://www.cnblogs.com/brad1994/p/6761110.html>
