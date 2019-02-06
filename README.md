@@ -4,9 +4,17 @@ My workspace as a django web site.
 ## Release
 
 Release plan
-- v0.2.1: Poll app 添加测试代码。
 
-### v 0.2.0
+- v0.2.2: define administration page. 
+
+### v0.2.1
+
+Poll app 添加测试代码。
+
+- [x] Poll app run OK.
+- [x] P-nav app run OK.
+
+### v0.2.0
 
 Poll app的第一阶段版本。
 
