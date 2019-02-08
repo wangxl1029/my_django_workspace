@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'img_uploader.apps.ImgUploaderConfig',
     'pnavi_test.apps.PnaviTestConfig',
 #   'polls.apps.PollsConfig',
     'django.contrib.admin',
