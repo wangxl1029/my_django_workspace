@@ -10,10 +10,13 @@ My workspace as a django web site.
 
 v0.3.1
 
-+ MTV tutorial:
++ MTV tutorial: 上传图片的示例，不完全参照。
     - <https://blog.csdn.net/qq_27437781/article/details/80852978>
+    - revision: e73bb79612fd4b09a5524510098217c557ac5b4d
 + Discovery:
     - 你会发现同一个文件名上传是没有问题的，Django会为发生了文件名重复的文件生成不同的后缀。
++ 简书Md5的样例：几乎完全参照。
+    - <https://www.jianshu.com/p/41a2976418d9>
 
 ### v0.3.0
 

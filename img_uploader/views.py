@@ -38,6 +38,6 @@ def show_img(request):
         'imgs': imgs,
     }
     for i in imgs:
-        print (i.img.url)
+        print(i.img.url)
     return render(request, 'img_uploader/showing.html', content)
 
