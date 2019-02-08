@@ -10,8 +10,10 @@ My workspace as a django web site.
 
 v0.3.1
 
-+ Models tutorial:
++ MTV tutorial:
     - <https://blog.csdn.net/qq_27437781/article/details/80852978>
++ Discovery:
+    - 你会发现同一个文件名上传是没有问题的，Django会为发生了文件名重复的文件生成不同的后缀。
 
 ### v0.3.0
 
