@@ -1,11 +1,23 @@
 # my_django_workspace
 My workspace as a django web site.
 
+## deployment
+
+- django 2.1
+- python 3.6
+
 ## Release
 
-Release plan
+### v0.3.0
 
-- v0.2.2: define administration page. 
+Image uploader initial version.
+
+### v0.2.2
+
+define administration page. 
+
+- [x] Poll app run OK.
+- [x] P-nav app run OK.
 
 ### v0.2.1
 
