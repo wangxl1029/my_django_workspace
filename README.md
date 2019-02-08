@@ -8,6 +8,11 @@ My workspace as a django web site.
 
 ## Release
 
+v0.3.1
+
++ Models tutorial:
+    - <https://blog.csdn.net/qq_27437781/article/details/80852978>
+
 ### v0.3.0
 
 Image uploader initial version.
