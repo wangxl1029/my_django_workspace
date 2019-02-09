@@ -17,6 +17,11 @@ v0.3.1
     - 你会发现同一个文件名上传是没有问题的，Django会为发生了文件名重复的文件生成不同的后缀。
 + 简书Md5的样例：几乎完全参照。
     - <https://www.jianshu.com/p/41a2976418d9>
+    - <https://blog.csdn.net/bird73/article/details/79875284>
+    - revision: fb3f08789e3e1c1f9c9c2e5d8582b63a0f572b09
++ Models.ImageField: width and height fields example
+    - <https://www.cnblogs.com/linkenpark/p/5596365.html>
+    - <https://blog.csdn.net/love629891/article/details/79408014>
 
 ### v0.3.0
 

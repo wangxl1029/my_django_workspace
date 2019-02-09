@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.utils import timezone
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.db import IntegrityError
 
 from .models import Image
 
@@ -19,8 +20,12 @@ def upload(request):
             name=request.FILES.get('img').name,
             new_date=timezone.now()
         )
-        new_img.save()
-        return HttpResponseRedirect(reverse('img_uploader:result'))
+        try:
+            new_img.save()
+        except IntegrityError:
+            return HttpResponse("I figure you pick a non-picture!")
+
+    return HttpResponseRedirect(reverse('img_uploader:result'))
 
 
 def upload_page(request):

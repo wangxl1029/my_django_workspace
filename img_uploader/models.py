@@ -26,7 +26,9 @@ def md5_filename(instance, filename):
 
 class Image(models.Model):
     # tag = models.ForeignKey(BasicTag, on_delete=models.CASCADE)
-    img = models.ImageField(upload_to=md5_filename)
+    img = models.ImageField(upload_to=md5_filename, width_field='img_width', height_field='img_height')
+    img_width = models.PositiveIntegerField(default=1)
+    img_height = models.PositiveIntegerField(default=1)
     name = models.CharField(max_length=20)
     new_date = models.DateTimeField('upload date')
 
