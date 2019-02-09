@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.db import IntegrityError
 
-from .models import Image
+from .models import Image, hash_file
 
 
 # Create your views here.
@@ -15,15 +15,25 @@ def upload(request):
     :return:
     """
     if request.method == 'POST':
-        new_img = Image(
-            img=request.FILES.get('img'),
-            name=request.FILES.get('img').name,
-            new_date=timezone.now()
-        )
+        img = request.FILES.get('img')
+        img.open()
+        md5code = hash_file(img)
+        print('md5 {0} from request'.format(md5code))
         try:
-            new_img.save()
-        except IntegrityError:
-            return HttpResponse("I figure you pick a non-picture!")
+            Image.objects.get(md5hex=md5code)
+        except Image.DoesNotExist:
+            new_img = Image(
+                img=img,
+                name=request.FILES.get('img').name,
+                md5hex=md5code,
+                new_date=timezone.now()
+            )
+
+            try:
+                print(new_img.md5hex)
+                new_img.save()
+            except IntegrityError:
+                return HttpResponse("I figure you pick a non-picture!")
 
     return HttpResponseRedirect(reverse('img_uploader:result'))
 

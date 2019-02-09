@@ -18,10 +18,9 @@ def md5_filename(instance, filename):
     """
     :type instance: Image.img
     """
-    instance.img.open()
     filename_base, filename_ext = path.splitext(filename)
 
-    return "{0}{1}".format(hash_file(instance.img), filename_ext)
+    return "{0}{1}".format(instance.md5hex, filename_ext)
 
 
 class Image(models.Model):
@@ -29,6 +28,7 @@ class Image(models.Model):
     img = models.ImageField(upload_to=md5_filename, width_field='img_width', height_field='img_height')
     img_width = models.PositiveIntegerField(default=1)
     img_height = models.PositiveIntegerField(default=1)
+    md5hex = models.CharField(max_length=40, unique=True)
     name = models.CharField(max_length=20)
     new_date = models.DateTimeField('upload date')
 
