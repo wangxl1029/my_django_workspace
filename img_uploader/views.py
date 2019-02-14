@@ -29,7 +29,6 @@ def upload(request):
         except Image.DoesNotExist:
             new_img = Image(
                 img=img,
-                name=request.FILES.get('img').name,
                 md5hex=md5code,
                 new_date=timezone.now()
             )

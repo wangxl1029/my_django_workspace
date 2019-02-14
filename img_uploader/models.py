@@ -34,7 +34,6 @@ class Image(models.Model):
     img_width = models.PositiveIntegerField(default=1)
     img_height = models.PositiveIntegerField(default=1)
     md5hex = models.CharField(max_length=40, unique=True)
-    name = models.CharField(max_length=20)
     new_date = models.DateTimeField('upload date')
 
 
