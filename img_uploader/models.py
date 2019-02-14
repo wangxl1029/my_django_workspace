@@ -30,7 +30,7 @@ def md5_filename(instance, filename):
 class Image(models.Model):
     fs = FileSystemStorage(location=path.join(Path.home(), 'Desktop', 'app_media'), base_url='/img/')
     # tag = models.ForeignKey(BasicTag, on_delete=models.CASCADE)
-    img = models.ImageField(storage=fs, upload_to=md5_filename, width_field='img_width', height_field='img_height')
+    img = models.ImageField(storage=fs, upload_to='%Y/%m/%d/', width_field='img_width', height_field='img_height')
     img_width = models.PositiveIntegerField(default=1)
     img_height = models.PositiveIntegerField(default=1)
     md5hex = models.CharField(max_length=40, unique=True)
