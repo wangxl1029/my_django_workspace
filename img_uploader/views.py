@@ -15,10 +15,15 @@ def upload(request):
     :return:
     """
     if request.method == 'POST':
-        img = request.FILES.get('img')
+        try:
+            img = request.FILES.get('img')
+        except KeyError:
+            return HttpResponseRedirect(reverse('img_uploader:result'))
+
         img.open()
         md5code = hash_file(img)
         print('md5 {0} from request'.format(md5code))
+
         try:
             Image.objects.get(md5hex=md5code)
         except Image.DoesNotExist:

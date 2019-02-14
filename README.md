@@ -1,6 +1,12 @@
 # my_django_workspace
 My workspace as a django web site.
 
+version | app 
+--------|-----
+ v0.3.x | image uploader
+ v0.2.x | polls
+ v0.1.x | predictive navigation
+
 ## deployment
 
 - django 2.1
@@ -22,6 +28,11 @@ v0.3.1
 + Models.ImageField: width and height fields example
     - <https://www.cnblogs.com/linkenpark/p/5596365.html>
     - <https://blog.csdn.net/love629891/article/details/79408014>
++ 图片url映射到本地路径：
+    - <https://docs.djangoproject.com/zh-hans/2.1/ref/urls/#static>
++ 更改md5码为unique字段：
+    - revision: 165e9fcd26eb3922e36480f2dc9a6d7681d1f3b5
+
 
 ### v0.3.0
 
