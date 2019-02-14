@@ -14,7 +14,7 @@ version | app
 
 ## Release
 
-v0.3.1
+### v0.3.1
 
 + MTV tutorial: 上传图片的示例，不完全参照。
     - <https://blog.csdn.net/qq_27437781/article/details/80852978>
@@ -32,7 +32,8 @@ v0.3.1
     - <https://docs.djangoproject.com/zh-hans/2.1/ref/urls/#static>
 + 更改md5码为unique字段：
     - revision: 165e9fcd26eb3922e36480f2dc9a6d7681d1f3b5
-
++ 指定image field的filesystem storage.
+    - revision: 504941e7b18557d73893409fcbfe3e29960ef8c3
 
 ### v0.3.0
 
