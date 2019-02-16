@@ -7,7 +7,11 @@
 <body>
 
     {% for img in imgs %}
-         <img src="{{ img.img.url }}" />
+        <p>
+            md5: {{ img.md5hex }}<br>
+            size: {{ img.img_width }}x{{ img.img_height }}<br>
+            <img src="{{ img.img.url }}" />
+        </p>
     {% endfor %}
 
 </body>

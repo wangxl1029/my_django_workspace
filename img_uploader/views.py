@@ -39,7 +39,7 @@ def upload(request):
                 except IntegrityError:
                     return HttpResponse("I figure you pick a non-picture!")
 
-            return HttpResponseRedirect(reverse('img_uploader:result'))
+            return HttpResponseRedirect(reverse('img_uploader:md5img', args=(md5code,)))
 
     else:
         form = UploaderForm()
@@ -57,11 +57,18 @@ def show_img(request):
     :param request:
     :return:
     """
-    imgs = Image.objects.all()
+    images = Image.objects.all()
     content = {
-        'imgs': imgs,
+        'imgs': images,
     }
-    for i in imgs:
-        print(i.img.url)
+    # for i in imgs:
+    #     print(i.img.url)
     return render(request, 'img_uploader/showing.html', content)
 
+
+def show_md5(request, md5hex):
+    images = Image.objects.filter(md5hex=md5hex)
+    if images:
+        return render(request, 'img_uploader/showing.html', {'imgs': images})
+
+    return HttpResponse("target image md5 \"%s\" not found!" % md5hex)
