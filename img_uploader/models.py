@@ -29,14 +29,20 @@ def md5_filename(instance, filename):
 
 class Image(models.Model):
     fs = FileSystemStorage(location=path.join(Path.home(), 'Desktop', 'app_media'), base_url='/img/')
-    # tag = models.ForeignKey(BasicTag, on_delete=models.CASCADE)
     img = models.ImageField(storage=fs, upload_to='%Y/%m/%d/', width_field='img_width', height_field='img_height')
     img_width = models.PositiveIntegerField(default=1, editable=False)
     img_height = models.PositiveIntegerField(default=1, editable=False)
     md5hex = models.CharField(max_length=40, unique=True, editable=False)
     new_date = models.DateTimeField('upload date')
 
+    def __str__(self):
+        return self.md5hex
+
 
 class BasicTag(models.Model):
     text = models.CharField(max_length=100)
+    images = models.ManyToManyField(Image)
+
+    def __str__(self):
+        return self.text
 
