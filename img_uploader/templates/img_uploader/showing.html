@@ -12,8 +12,13 @@
             size: {{ img.img_width }}x{{ img.img_height }}<br>
             local path: {{ img.img.path }}<br>
             time uploaded: {{ img.new_date | date:"D d M Y" }} {{ img.new_date | time:"H:i" }}<br>
-            tags({{ img.tags.count }}): {% for tag in img.tags.all %}
-                 {{ tag.text }},
+            tag{{ img.tags.count|pluralize }}({{ img.tags.count }}):
+            {% for tag in img.tags.all %}
+                {% if forloop.last %}
+                    {{ tag.text }}
+                {% else %}
+                    {{ tag.text }},
+                {% endif %}
             {% endfor %}<br>
             <img src="{{ img.img.url }}" />
         </p>

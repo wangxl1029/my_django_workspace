@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 # from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
+from django.template import RequestContext
 
 from .models import Image, hash_file, BasicTag
 from .forms import UploaderForm, ImageTagEditForm
@@ -97,7 +98,7 @@ def show_md5(request, md5hex):
     return HttpResponse("target image md5 \"%s\" not found!" % md5hex)
 
 
-@csrf_exempt
+# @csrf_exempt
 def tag_edit(request, md5hex):
     image = get_object_or_404(Image, md5hex=md5hex)
     if request.method == 'POST':
@@ -115,4 +116,4 @@ def tag_edit(request, md5hex):
 
         form = ImageTagEditForm(instance=image)
 
-    return render(request, 'img_uploader/tagedit.html', {'md5hex': md5hex, 'form': form})
+    return render(request, 'img_uploader/tagedit.html', {'md5hex': md5hex, 'form': form} )

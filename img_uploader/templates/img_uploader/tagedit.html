@@ -5,7 +5,7 @@
     <title>edit tag page</title>
 </head>
 <body>
-<form method="post" enctype="text/plain" action="{% url 'img_uploader:tag_edit' md5hex %}" >
+<form method="post" action="{% url 'img_uploader:tag_edit' md5hex %}" >
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="submit">
