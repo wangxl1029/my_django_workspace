@@ -10,8 +10,10 @@ from django.core.files.storage import FileSystemStorage
 
 def hash_file(file, block_size=65536):
     hasher = hashlib.md5()
-    for buf in iter(partial(file.read, block_size), b''):
-        hasher.update(buf)
+    # for buf in iter(partial(file.read, block_size), b''):
+    #     hasher.update(buf)
+    for chunk in file.chunks():
+        hasher.update(chunk)
 
     return hasher.hexdigest()
 
@@ -32,6 +34,9 @@ class BasicTag(models.Model):
     # images = models.ManyToManyField(Image)
 
     def __str__(self):
+        return self.text
+
+    def __unicode__(self):
         return self.text
 
 
