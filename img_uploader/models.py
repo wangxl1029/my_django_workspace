@@ -48,3 +48,21 @@ class Image(models.Model):
     def __str__(self):
         return self.md5hex
 
+
+class Album(models.Model):
+    title = models.CharField(max_length=100)
+    images = models.ManyToManyField(
+        Image,
+        through='AlbumImageRemark',
+        through_fields=['album', 'image']
+    )
+
+    def __str__(self):
+        return self.title
+
+
+class AlbumImageRemark(models.Model):
+    text = models.TextField()
+    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+
