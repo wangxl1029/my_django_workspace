@@ -3,9 +3,10 @@ from django.utils import timezone
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.db import IntegrityError
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
-from .models import Image, hash_file
-from .forms import UploaderForm
+from .models import Image, hash_file, BasicTag
+from .forms import UploaderForm, ImageTagEditForm
 
 
 # Create your views here.
@@ -72,3 +73,21 @@ def show_md5(request, md5hex):
         return render(request, 'img_uploader/showing.html', {'imgs': images})
 
     return HttpResponse("target image md5 \"%s\" not found!" % md5hex)
+
+
+@csrf_exempt
+def tag_edit(request, md5hex):
+    if request.method == 'POST':
+        form = ImageTagEditForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+
+            return HttpResponseRedirect(reverse('img_uploader:md5img', args=(md5hex,)))
+
+    else:
+        if BasicTag.objects.count() == 0:
+            return HttpResponse('No tags available!')
+
+        form = ImageTagEditForm()
+
+    return render(request, 'img_uploader/tagedit.html', {'md5hex': md5hex, 'form': form})
