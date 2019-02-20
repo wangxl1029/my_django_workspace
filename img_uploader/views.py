@@ -73,7 +73,7 @@ def tag_edit(request, md5hex):
             print(form.cleaned_data)
             form.save()
 
-            messages.info(request, "tag edit ok.")
+            messages.info(request, "The tag of image \"%s\" is updated ok." % md5hex)
             return HttpResponseRedirect(reverse('img_uploader:md5img', args=(md5hex,)))
 
         else:
@@ -86,3 +86,7 @@ def tag_edit(request, md5hex):
 
     return render(request, 'img_uploader/tagedit.html', {'md5hex': md5hex, 'form': form})
 
+
+def image_album_edit(request, md5hex):
+    image = get_object_or_404(Image, md5hex=md5hex)
+    return HttpResponse("This is %s album edition page" % image)

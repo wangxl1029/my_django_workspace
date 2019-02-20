@@ -48,17 +48,17 @@ class Image(models.Model):
     md5hex = models.CharField(max_length=40, unique=True, editable=False)
     new_date = models.DateTimeField('upload date')
 
-    tags = models.ManyToManyField(BasicTag)
+    tags = models.ManyToManyField(BasicTag, blank=True)
 
     def __str__(self):
         return self.md5hex
 
 
 class Album(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=128, unique=True)
     images = models.ManyToManyField(
         Image,
-        through='AlbumImageRemark',
+        through='AlbumImageEntry',
         through_fields=['album', 'image']
     )
 
@@ -66,8 +66,11 @@ class Album(models.Model):
         return self.title
 
 
-class AlbumImageRemark(models.Model):
-    text = models.TextField()
+class AlbumImageEntry(models.Model):
+    caption = models.CharField(max_length=64, blank=True)
+    remark = models.TextField(blank=True)
     image = models.ForeignKey(Image, on_delete=models.CASCADE)
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return ".".join([self.album, self.image])
