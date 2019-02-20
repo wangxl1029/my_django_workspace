@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.contrib import messages
 
 from .models import Image, hash_file, BasicTag
 from .forms import UploaderForm, ImageTagEditForm
@@ -23,13 +24,15 @@ def upload(request):
             print('md5 {0} from request'.format(md5hex))
 
             try:
-                img = Image.objects.get(md5hex=md5hex)
+                Image.objects.get(md5hex=md5hex)
+                messages.warning(request, "Duplicated uploading image \"%s\"!" % md5hex)
             except Image.DoesNotExist:
-                img = form.save(commit=False)
-                img.md5hex = md5hex
-                img.new_date = timezone.now()
-                img.save()
+                new_img = form.save(commit=False)
+                new_img.md5hex = md5hex
+                new_img.new_date = timezone.now()
+                new_img.save()
                 form.save_m2m()
+                messages.info(request, "New image \"%s\" uploaded OK." % md5hex)
 
             return HttpResponseRedirect(reverse('img_uploader:md5img', args=(md5hex,)))
 
@@ -70,7 +73,9 @@ def tag_edit(request, md5hex):
             print(form.cleaned_data)
             form.save()
 
+            messages.info(request, "tag edit ok.")
             return HttpResponseRedirect(reverse('img_uploader:md5img', args=(md5hex,)))
+
         else:
             print(request.POST)
     else:
@@ -80,3 +85,4 @@ def tag_edit(request, md5hex):
         form = ImageTagEditForm(instance=image)
 
     return render(request, 'img_uploader/tagedit.html', {'md5hex': md5hex, 'form': form})
+
