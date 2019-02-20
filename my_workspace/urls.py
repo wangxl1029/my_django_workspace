@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 # from django.conf import settings
 
 urlpatterns = [
-    path('image/', include('img_uploader.urls')),
+    path('images/', include('img_uploader.urls')),
     path('pnavi/', include('pnavi_test.urls')),
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),

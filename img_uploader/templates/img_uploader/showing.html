@@ -5,20 +5,21 @@
     <title>showing page</title>
 </head>
 <body>
+    {% if message %}
+        <strong>{{ message }}</strong>
+    {% endif %}
 
     {% for img in imgs %}
         <p>
+            size: {{ img.img.size|filesizeformat }}<br>
             md5: {{ img.md5hex }}<br>
-            size: {{ img.img_width }}x{{ img.img_height }}<br>
+            WxH: {{ img.img_width }}x{{ img.img_height }}<br>
             local path: {{ img.img.path }}<br>
             time uploaded: {{ img.new_date | date:"D d M Y" }} {{ img.new_date | time:"H:i" }}<br>
-            tag{{ img.tags.count|pluralize }}({{ img.tags.count }}):
+            tag{{ img.tags.count|pluralize }}({{ img.tags.count }})
+            [<a href="{% url 'img_uploader:tag_edit' img.md5hex %}">edit</a>] :
             {% for tag in img.tags.all %}
-                {% if forloop.last %}
-                    {{ tag.text }}
-                {% else %}
-                    {{ tag.text }},
-                {% endif %}
+                {% if forloop.last %} {{ tag.text }} {% else %} {{ tag.text }}, {% endif %}
             {% endfor %}<br>
             <img src="{{ img.img.url }}" />
         </p>
