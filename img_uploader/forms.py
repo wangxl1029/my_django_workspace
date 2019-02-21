@@ -28,3 +28,10 @@ class ImageTagEditForm(forms.ModelForm):
     class Meta:
         model = models.Image
         fields = ["tags", ]
+        widgets = {'tags': forms.CheckboxSelectMultiple}
+
+
+class EditEntryInAlbumForm(forms.ModelForm):
+    class Meta:
+        model = models.AlbumImageEntry
+        fields = ['caption', 'remark']

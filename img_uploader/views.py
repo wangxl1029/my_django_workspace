@@ -4,8 +4,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib import messages
 
-from .models import Image, hash_file, BasicTag
-from .forms import UploaderForm, ImageTagEditForm
+from .models import Image, hash_file, BasicTag, Album, AlbumImageEntry
+from .forms import UploaderForm, ImageTagEditForm, EditEntryInAlbumForm
 
 
 # Create your views here.
@@ -87,6 +87,57 @@ def tag_edit(request, md5hex):
     return render(request, 'img_uploader/tagedit.html', {'md5hex': md5hex, 'form': form})
 
 
-def image_album_edit(request, md5hex):
+def add_image_to_album(request, md5hex):
     image = get_object_or_404(Image, md5hex=md5hex)
-    return HttpResponse("This is %s album edition page" % image)
+    if request.method == 'POST':
+        try:
+            album_selected = request.POST['album_entry']
+        except KeyError:
+            messages.info(request, "Non selected!")
+        else:
+            messages.info(request, "select {0}".format(album_selected))
+            album_target = get_object_or_404(Album, pk=album_selected)
+            AlbumImageEntry.objects.create(image=image, album=album_target)
+
+            return HttpResponseRedirect(reverse('img_uploader:album_at', args=(album_selected,)))
+
+        return HttpResponseRedirect(reverse('img_uploader:md5img', args=(md5hex,)))
+    else:
+        to_list = Album.objects.exclude(id__in=[a.id for a in image.album_set.all()])
+        return render(request, 'img_uploader/albumedit.html', {'img': image, 'to_list': to_list})
+
+
+def album_index(request):
+    pass
+
+
+def album_at(request, album_id):
+    album = get_object_or_404(Album, pk=album_id)
+    return render(request, 'img_uploader/album.html', {'album': album})
+
+
+def album_entry_edit(request, entry_id):
+    image_entry = get_object_or_404(AlbumImageEntry, pk=entry_id)
+    has_contents = image_entry.caption or image_entry.remark
+    if request.method == 'POST':
+        try:
+            operation = request.POST['operation']
+        except KeyError:
+            operation = 'edit'
+        else:
+            if "remove" == operation:
+                image_entry.delete()
+
+        if "edit" == operation:
+            form = EditEntryInAlbumForm(request.POST, instance=image_entry)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('img_uploader:album_at', args=(image_entry.album.id,)))
+
+        return HttpResponseRedirect(reverse('img_uploader:md5img', args=(image_entry.image.md5hex,)))
+
+    else:
+        form = EditEntryInAlbumForm(instance=image_entry)
+
+    return render(request, 'img_uploader/album_entry_edit.html',
+                  {'entry': image_entry, 'is_allow_remove': not has_contents, 'form': form})

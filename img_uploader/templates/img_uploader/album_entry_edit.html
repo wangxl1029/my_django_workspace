@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>album entry edit</title>
+</head>
+<body>
+<h1>{{ entry }}</h1>
+{% if not is_allow_remove %}
+    <strong>Clear all the caption and remark to remove current entry!</strong>
+{% endif %}
+
+<form method="post" action="{% url 'img_uploader:album_entry_edit' entry.id %}">
+    {% csrf_token %}
+    {% if is_allow_remove %}
+        <select name="operation" >
+            <option value="edit">添加或变更内容</option>
+            <option value="remove">从专辑中移除该图像条目</option>
+        </select>
+        <hr>
+    {% endif %}
+    {{ form.as_p }}
+    <input type="submit" value="提交">
+</form>
+
+<p><img src="{{ entry.image.img.url }}"></p>
+</body>
+</html>

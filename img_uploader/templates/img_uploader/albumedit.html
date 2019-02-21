@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>album edition of the image {{ img }}</title>
+</head>
+<body>
+{% if to_list %}
+    Add the image of "{{ img }}" to album:
+    <form method="post" action="{% url 'img_uploader:add_img2album' img.md5hex %}">
+        {% csrf_token %}
+        {% for album in to_list %}
+            <input type="radio" name="album_entry" value="{{ album.id }}" id="a{{ forloop.counter }}">
+            <label for="a{{ forloop.counter }}">{{ album }}</label><br>
+        {% endfor %}
+        <input type="submit" name="submit" value="提交">
+    </form>
+{% else %}
+    No album to add!
+{% endif %}
+</body>
+</html>
