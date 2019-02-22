@@ -59,7 +59,8 @@ class Album(models.Model):
     images = models.ManyToManyField(
         Image, blank=True,
         through='AlbumImageEntry',
-        through_fields=['album', 'image']
+        through_fields=['album', 'image'],
+        related_name='albums'
     )
 
     def __str__(self):
@@ -70,7 +71,7 @@ class AlbumImageEntry(models.Model):
     caption = models.CharField(max_length=64, blank=True)
     remark = models.TextField(blank=True)
     image = models.ForeignKey(Image, on_delete=models.CASCADE)
-    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, related_name='entries')
 
     def __str__(self):
         return ":".join([self.album.title, self.image.md5hex])

@@ -48,12 +48,10 @@ def show_img(request):
     :param request:
     :return:
     """
-    images = Image.objects.all()
+    images = Image.objects.all().order_by('-new_date')
     content = {
         'imgs': images,
     }
-    # for i in imgs:
-    #     print(i.img.url)
     return render(request, 'img_uploader/showing.html', content)
 
 
@@ -93,22 +91,21 @@ def add_image_to_album(request, md5hex):
         try:
             album_selected = request.POST['album_entry']
         except KeyError:
-            messages.info(request, "Non selected!")
+            messages.info(request, "No album selected!")
+            return HttpResponseRedirect(reverse('img_uploader:md5img', args=(md5hex,)))
         else:
-            messages.info(request, "select {0}".format(album_selected))
             album_target = get_object_or_404(Album, pk=album_selected)
             AlbumImageEntry.objects.create(image=image, album=album_target)
 
             return HttpResponseRedirect(reverse('img_uploader:album_at', args=(album_selected,)))
 
-        return HttpResponseRedirect(reverse('img_uploader:md5img', args=(md5hex,)))
     else:
-        to_list = Album.objects.exclude(id__in=[a.id for a in image.album_set.all()])
+        to_list = Album.objects.exclude(id__in=[a.id for a in image.albums.all()])
         return render(request, 'img_uploader/albumedit.html', {'img': image, 'to_list': to_list})
 
 
 def album_index(request):
-    pass
+    return HttpResponse("album index page")
 
 
 def album_at(request, album_id):

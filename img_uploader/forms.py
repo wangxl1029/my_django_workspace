@@ -22,6 +22,9 @@ class UploaderForm(forms.ModelForm):
     class Meta:
         model = models.Image
         fields = ['img', 'tags']
+        widgets = {'tags': forms.CheckboxSelectMultiple}
+        labels = {'img': "上传图片",
+                  'tags': "选择图片标签（可多选）"}
 
 
 class ImageTagEditForm(forms.ModelForm):
@@ -29,6 +32,7 @@ class ImageTagEditForm(forms.ModelForm):
         model = models.Image
         fields = ["tags", ]
         widgets = {'tags': forms.CheckboxSelectMultiple}
+        labels = {'tags': "修改图片标签"}
 
 
 class EditEntryInAlbumForm(forms.ModelForm):
