@@ -8,7 +8,7 @@
 {% include 'img_uploader/includes/nav.html' %}
 <ul>
     {% for tag in tags %}
-        <li>{{ tag }}</li>
+        <li> <a href="{% url 'img_uploader:tag-detail' tag.id %}">{{ tag }}</a> &raquo; [{{ tag.images.count }}]</li>
     {% endfor %}
 
 </ul>

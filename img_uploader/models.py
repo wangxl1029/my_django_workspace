@@ -31,7 +31,6 @@ def md5_filename(instance, filename):
 
 class BasicTag(models.Model):
     text = models.CharField(max_length=100)
-    # images = models.ManyToManyField(Image)
 
     def __str__(self):
         return self.text
@@ -48,7 +47,7 @@ class Image(models.Model):
     md5hex = models.CharField(max_length=40, unique=True, editable=False)
     new_date = models.DateTimeField('upload date')
 
-    tags = models.ManyToManyField(BasicTag, blank=True)
+    tags = models.ManyToManyField(BasicTag, blank=True, related_name='images')
 
     def __str__(self):
         return self.md5hex

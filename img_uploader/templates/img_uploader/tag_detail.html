@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tag detail</title>
+</head>
+<body>
+<h1>{{ tag }}</h1>
+{% include "img_uploader/includes/nav.html" %}
+共有{{ tag.images.count }}张图片。
+{% for img in tag.images.all %}
+    <p>{% include "img_uploader/includes/block_img.html" %}</p>
+{% empty %}
+    No image available.
+{% endfor %}
+
+</body>
+</html>

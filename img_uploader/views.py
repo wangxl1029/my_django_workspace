@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib import messages
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from .models import Image, hash_file, BasicTag, Album, AlbumImageEntry
 from .forms import UploaderForm, ImageTagEditForm, EditEntryInAlbumForm
@@ -109,6 +109,13 @@ class TagListView(ListView):
     model = BasicTag
     template_name = "img_uploader/tag_list.html"
     context_object_name = 'tags'
+
+
+class TagDetailView(DetailView):
+    model = BasicTag
+    template_name = "img_uploader/tag_detail.html"
+    context_object_name = 'tag'
+
 
 class AlbumListView(ListView):
     queryset = Album.objects.order_by('-modified_on')
