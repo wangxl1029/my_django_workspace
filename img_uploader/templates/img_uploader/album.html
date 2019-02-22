@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>{{ album }}</h1>
-
+{% include "img_uploader/includes/nav.html" %}
 {% for image_entry in album.entries.all %}
 
     <p>

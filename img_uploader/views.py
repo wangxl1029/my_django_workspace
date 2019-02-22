@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib import messages
+from django.views.generic import ListView
 
 from .models import Image, hash_file, BasicTag, Album, AlbumImageEntry
 from .forms import UploaderForm, ImageTagEditForm, EditEntryInAlbumForm
@@ -106,6 +107,11 @@ def add_image_to_album(request, md5hex):
 
 def album_index(request):
     return HttpResponse("album index page")
+
+
+class AlbumIndexView(ListView):
+    # queryset = Album.objects.order_by('-')
+    model = Album
 
 
 def album_at(request, album_id):

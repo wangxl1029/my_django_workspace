@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>album list</title>
+</head>
+<body>
+{% include "img_uploader/includes/nav.html" %}
+<h1>Albums:</h1>
+<ul>
+{% for album in album_list %}
+    <li>{{ album }} <a href="{% url 'img_uploader:album_at' album.id %}">...</a> </li>
+{% endfor %}
+</ul>
+</body>
+</html>
