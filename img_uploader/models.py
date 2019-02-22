@@ -56,12 +56,16 @@ class Image(models.Model):
 
 class Album(models.Model):
     title = models.CharField(max_length=128, unique=True)
+    description = models.TextField(blank=True)
     images = models.ManyToManyField(
         Image, blank=True,
         through='AlbumImageEntry',
         through_fields=['album', 'image'],
         related_name='albums'
     )
+
+    create_on = models.DateTimeField()
+    modified_on = models.DateTimeField()
 
     def __str__(self):
         return self.title

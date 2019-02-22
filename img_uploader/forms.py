@@ -39,3 +39,4 @@ class EditEntryInAlbumForm(forms.ModelForm):
     class Meta:
         model = models.AlbumImageEntry
         fields = ['caption', 'remark']
+        widgets = {'caption': forms.TextInput(attrs={'size': 64}), }

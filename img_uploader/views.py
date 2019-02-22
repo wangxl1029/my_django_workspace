@@ -105,12 +105,13 @@ def add_image_to_album(request, md5hex):
         return render(request, 'img_uploader/albumedit.html', {'img': image, 'to_list': to_list})
 
 
-def album_index(request):
-    return HttpResponse("album index page")
+class TagListView(ListView):
+    model = BasicTag
+    template_name = "img_uploader/tag_list.html"
+    context_object_name = 'tags'
 
-
-class AlbumIndexView(ListView):
-    # queryset = Album.objects.order_by('-')
+class AlbumListView(ListView):
+    queryset = Album.objects.order_by('-modified_on')
     model = Album
 
 

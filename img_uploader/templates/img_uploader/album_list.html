@@ -9,7 +9,7 @@
 <h1>Albums:</h1>
 <ul>
 {% for album in album_list %}
-    <li>{{ album }} <a href="{% url 'img_uploader:album_at' album.id %}">...</a> </li>
+    <li>{{ album.modified_on|date:"Y.m.d" }} {{ album.modified_on|time:"H:i" }}: {{ album }} <a href="{% url 'img_uploader:album_at' album.id %}">...</a> </li>
 {% endfor %}
 </ul>
 </body>
