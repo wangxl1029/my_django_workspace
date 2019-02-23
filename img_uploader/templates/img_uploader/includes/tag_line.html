@@ -1,0 +1,4 @@
+{% for tag in img.tags.all %}
+    <a href="{% url 'img_uploader:tag-detail' tag.id %}#{{ img.md5hex }}">{{ tag.text }}</a> {% if not forloop.last %}, {% endif %}
+{% empty %}(None)
+{% endfor %}<br>

@@ -17,19 +17,7 @@
 
     {% for img in imgs %}
 <p>
-    {% if img.img_height > img.img_width %}Portrait{% else %}Landscape {% endif %}: {{ img.img_width }}x{{ img.img_height }},
-    size: {{ img.img.size|filesizeformat }}<br>
-    md5: {{ img.md5hex }}<br>
-    local path: {{ img.img.path }}<br>
-    time uploaded: {{ img.new_date | date:"D d M Y" }} {{ img.new_date | time:"H:i" }}<br>
-    own {{ img.tags.count }} tag{{ img.tags.count|pluralize }} [<a href="{% url 'img_uploader:tag_edit' img.md5hex %}">edit</a>] :
-    {% for tag in img.tags.all %} {% if forloop.last %} {{ tag.text|urlize }} {% else %} {{ tag.text|urlize }}, {% endif %} {% empty %} N/A {% endfor %}<br>
-    in {{ img.album_set.count }} album{{ img.album_set.count|pluralize }} [<a href="{% url 'img_uploader:add_img2album' img.md5hex %}">add</a>] :
-    {# album list #}
-    {% for album in img.album_set.all %}
-        <a href="{% url 'img_uploader:album_at' album.id %}#{{ img.md5hex }}">{{ album }}</a> {% if not forloop.last %} , {% endif %}
-    {% empty %} N/A {% endfor %}<br>
-    <img src="{{ img.img.url }}" />
+{% include "img_uploader/includes/block_img.html" %}
 </p>
 {% empty %}
         No images!

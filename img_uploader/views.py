@@ -98,7 +98,8 @@ def add_image_to_album(request, md5hex):
             album_target = get_object_or_404(Album, pk=album_selected)
             AlbumImageEntry.objects.create(image=image, album=album_target)
 
-            return HttpResponseRedirect(reverse('img_uploader:album_at', args=(album_selected,)))
+            return HttpResponseRedirect(reverse('img_uploader:album_at', args=(album_selected,))
+                                        + "#%s" % image.md5hex)
 
     else:
         to_list = Album.objects.exclude(id__in=[a.id for a in image.albums.all()])
@@ -106,6 +107,7 @@ def add_image_to_album(request, md5hex):
 
 
 class TagListView(ListView):
+    queryset = BasicTag.objects.order_by('text')
     model = BasicTag
     template_name = "img_uploader/tag_list.html"
     context_object_name = 'tags'
@@ -115,6 +117,13 @@ class TagDetailView(DetailView):
     model = BasicTag
     template_name = "img_uploader/tag_detail.html"
     context_object_name = 'tag'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        tag = super().get_object()
+        context['images'] = tag.images.order_by('-new_date')
+        return context
 
 
 class AlbumListView(ListView):

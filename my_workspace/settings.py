@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{'current_time': "img_uploader.templatetags.img_uploader_extras", },
         },
     },
 ]

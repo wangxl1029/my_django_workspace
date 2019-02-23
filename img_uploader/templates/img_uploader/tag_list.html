@@ -6,6 +6,7 @@
 </head>
 <body>
 {% include 'img_uploader/includes/nav.html' %}
+标签：
 <ul>
     {% for tag in tags %}
         <li> <a href="{% url 'img_uploader:tag-detail' tag.id %}">{{ tag }}</a> &raquo; [{{ tag.images.count }}]</li>

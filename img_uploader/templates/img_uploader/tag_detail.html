@@ -5,10 +5,10 @@
     <title>tag detail</title>
 </head>
 <body>
-<h1>{{ tag }}</h1>
+<h1>Tag: {{ tag }}</h1>
 {% include "img_uploader/includes/nav.html" %}
 共有{{ tag.images.count }}张图片。
-{% for img in tag.images.all %}
+{% for img in images %}
     <p>{% include "img_uploader/includes/block_img.html" %}</p>
 {% empty %}
     No image available.

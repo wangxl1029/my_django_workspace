@@ -1,3 +1,4 @@
+{% load img_uploader_extras %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,16 +6,21 @@
     <title>album : {{ album }}</title>
 </head>
 <body>
-<h1>{{ album }}</h1>
+<h1>Album: {{ album }}</h1>
 {% include "img_uploader/includes/nav.html" %}
 {{ album.description|default:"No description." }}
 {% for image_entry in album.entries.all %}
 
     <p>
-        <img src="{{ image_entry.image.img.url }}" id="{{ image_entry.image.md5hex }}"><br>
+        <img src="{{ image_entry.image.img.url }}" id="{{ image_entry.image.md5hex }}"
+        {% if image_entry.image.img_height > 800 %}
+            height="800"
+        {% endif %}
+        ><br>
         Caption: {{ image_entry.caption|default:"(empty)" }}
         [<a href="{% url 'img_uploader:album_entry_edit' image_entry.id %}">edit</a>] <br>
-        Remark: {{ image_entry.remark|default:"(empty)" }}
+        Remark: {{ image_entry.remark|default:"(empty)" }}<br>
+        Tagged as : {% show_tag_line image_entry.image %}
     </p>
 {% endfor %}
 
