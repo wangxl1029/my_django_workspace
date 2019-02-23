@@ -13,10 +13,7 @@
 
     <p>
         <img src="{{ image_entry.image.img.url }}" id="{{ image_entry.image.md5hex }}"
-        {% if image_entry.image.img_height > 800 %}
-            height="800"
-        {% endif %}
-        ><br>
+        {{ image_entry.image.img_height|img_max_h:850 }} ><br>
         Caption: {{ image_entry.caption|default:"(empty)" }}
         [<a href="{% url 'img_uploader:album_entry_edit' image_entry.id %}">edit</a>] <br>
         Remark: {{ image_entry.remark|default:"(empty)" }}<br>

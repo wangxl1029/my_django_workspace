@@ -1,7 +1,8 @@
+{% load img_uploader_extras %}
 {% if img.img_height > img.img_width %}Portrait{% else %}Landscape {% endif %}: {{ img.img_width }}x{{ img.img_height }},
 size: {{ img.img.size|filesizeformat }},
 uploaded on {{ img.new_date | date:"D d,M,Y" }} {{ img.new_date | time:"H:i" }}<br>
-<img src="{{ img.img.url }}" id="{{ img.md5hex }}"><br>
+<img src="{{ img.img.url }}" {{ img.img_height|img_max_h:850 }} id="{{ img.md5hex }}"><br>
 md5: {{ img.md5hex }}<br>
 local path: {{ img.img.path }}<br>
 own {{ img.tags.count }} tag{{ img.tags.count|pluralize }} [<a href="{% url 'img_uploader:tag_edit' img.md5hex %}">edit</a>] : {% include "img_uploader/includes/tag_line.html" %}
@@ -9,4 +10,4 @@ in {{ img.albums.count }} album{{ img.albums.count|pluralize }} [<a href="{% url
 {# album list #}
 {% for album in img.albums.all %}
     <a href="{% url 'img_uploader:album_at' album.id %}#{{ img.md5hex }}">{{ album }}</a> {% if not forloop.last %} , {% endif %}
-{% empty %} N/A {% endfor %}
+{% empty %} None. {% endfor %}
